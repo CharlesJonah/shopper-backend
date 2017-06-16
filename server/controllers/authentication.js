@@ -8,35 +8,42 @@ const bcrypt = require('bcrypt-nodejs');
 module.exports = {
     login(user, res) {
         // find the user
-        User.findOne({ email: user.email }, function (err, user) {
+        if (user.email && user.password) {
+            User.findOne({ email: user.email }, function (err, user) {
 
-            if (err) throw err;
-
-            if (!user) {
-                res.json({ success: false, message: 'Login failed. User not found.' });
-            } else if (user) {
-
-                // check if password matches
-                if (user.password != user.password) {
-                    res.json({ success: false, message: 'Login failed. Wrong password.' });
-                } else {
-                    // if user is found and password is right
-                    // create a token
-                    var token = jwt.sign(user, config.DATABASE_URL, {
-                        expiresIn: 60 * 60 * 24 // expires in 24 hours
-                    });
-
-                    // return the information including token as JSON
-                    res.json({
-                        success: true,
-                        message: 'Login Successful!',
-                        token: token
-                    });
+                if (err) {
+                    res.status(500).send({ success: true, message: 'Server encountered problem while saving.' });
                 }
 
-            }
+                if (!user) {
+                    res.status(401).send({ success: false, message: 'Login failed. User not found.' });
+                } else if (user) {
 
-        });
+                    // check if password matches
+                    if (user.password != user.password) {
+                        res.status(401).send({ success: false, message: 'Login failed. Wrong password.' });
+                    } else {
+                        // if user is found and password is right
+                        // create a token
+                        const token = jwt.sign(user, config.DATABASE_URL, {
+                            expiresIn: 60 * 60 * 24 // expires in 24 hours
+                        });
+
+                        // return the information including token as JSON
+                        res.status(200).send({
+                            success: true,
+                            message: 'Login Successful!',
+                            token: token
+                        });
+                    }
+
+                }
+
+            });
+        }
+        else {
+            res.status(400).send({ success: true, message: 'Bad Request. Fill all the fields' });
+        }
     },
     register(user, res) {
         debugger;

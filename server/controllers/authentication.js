@@ -9,32 +9,27 @@ module.exports = {
     login(user, res) {
         // find the user
         if (user.email && user.password) {
-            User.findOne({ email: user.email }, function (err, user) {
+            User.findOne({ email: user.email }, function (err, isUser) {
 
                 if (err) {
                     res.status(500).send({ success: true, message: 'Server encountered problem while saving.' });
                 }
 
-                if (!user) {
+                if (!isUser) {
                     res.status(401).send({ success: false, message: 'Login failed. User not found.' });
-                } else if (user) {
+                } else if (isUser) {
 
                     // check if password matches
-                    if (user.password != user.password) {
-                        res.status(401).send({ success: false, message: 'Login failed. Wrong password.' });
-                    } else {
-                        // if user is found and password is right
-                        // create a token
+                    if (bcrypt.compareSync(user.password, isUser.password)) {
                         const token = jwt.sign(user, config.DATABASE_URL, {
                             expiresIn: 60 * 60 * 24 // expires in 24 hours
                         });
-
-                        // return the information including token as JSON
                         res.status(200).send({
-                            success: true,
-                            message: 'Login Successful!',
-                            token: token
+                            success: true, message: 'Login Successful!', token: token
                         });
+
+                    } else {
+                        res.status(401).send({ success: false, message: 'Login failed. Wrong password.' });
                     }
 
                 }

@@ -1,4 +1,3 @@
-const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken'); // used to create, sign, and verify tokens
 const config = require('../../server/config/config'); // get our config file
 const User = require('../../server/models/user'); // get our mongoose model
@@ -40,6 +39,25 @@ module.exports = {
             res.status(400).send({ success: true, message: 'Bad Request. Fill all the fields' });
         }
     },
+    verifyToken(req, res, next) {
+        const token = req.body.token || req.query.token || req.headers['x-access-token'];
+        if (token) {
+            jwt.verify(token, config.DATABASE_URL, (err, decoded) => {
+                if (err) {
+                    return res.status(403).send({
+                        message: 'Failed to authenticate token.'
+                    });
+                } else {
+                    req.decoded = decoded;
+                    next();
+                }
+            });
+        } else {
+            return res.status(403).send({
+                message: "No token provided."
+            });
+        }
+    },
     register(user, res) {
         debugger;
         if (user.email && user.first_name && user.last_name && user.password) {
@@ -69,7 +87,6 @@ module.exports = {
                         }
 
                     });
-
                 }
                 else {
                     res.status(400).send({ success: false, message: 'Weak password. password should contain at least 1 lowercase alphabetical character,at least 1 uppercase alphabetical character,at least 1 numeric character and must be must be eight characters or longer.' });

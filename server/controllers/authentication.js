@@ -39,6 +39,9 @@ module.exports = {
             res.status(400).send({ success: true, message: 'Bad Request. Fill all the fields' });
         }
     },
+    updateUser(req, res) {
+
+    },
     verifyToken(req, res, next) {
         const token = req.body.token || req.query.token || req.headers['x-access-token'];
         if (token) {
@@ -59,8 +62,7 @@ module.exports = {
         }
     },
     register(user, res) {
-        debugger;
-        if (user.email && user.first_name && user.last_name && user.password) {
+        if (user.email && user.first_name && user.last_name && user.password && user.country && user.phone) {
             var email_filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
             var password_filter = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,}/
             if (email_filter.test(user.email)) {

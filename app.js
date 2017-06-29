@@ -63,6 +63,9 @@ apiRoutes.put('/products/:id', authentication.verifyToken, function (req, res) {
 apiRoutes.delete('/products/:id', authentication.verifyToken, function (req, res) {
   product.deleteProduct(req, res);
 });
+apiRoutes.get('/', (req, res) => res.status(200).send({
+  message: 'Server is running.',
+}));
 app.use('/api/v1', apiRoutes);
 
 module.exports = app;

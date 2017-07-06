@@ -11,7 +11,7 @@ module.exports = {
             User.findOne({ email: user.email }, function (err, isUser) {
 
                 if (err) {
-                    res.status(500).send({ success: true, message: 'Server encountered problem while saving.' });
+                    res.status(500).send({ success: false, message: 'Server encountered problem while saving.' });
                 }
 
                 if (!isUser) {
@@ -36,7 +36,7 @@ module.exports = {
             });
         }
         else {
-            res.status(400).send({ success: true, message: 'Bad Request. Fill all the fields' });
+            res.status(400).send({ success: false, message: 'Bad Request. Fill all the fields' });
         }
     },
     updateUser(req, res) {
@@ -70,7 +70,7 @@ module.exports = {
                     User.findOne({ email: user.email }, function (err, currentUser) {
 
                         if (err) {
-                            res.status(500).send({ success: true, message: 'Server encountered problem while saving.' });
+                            res.status(500).send({ success: false, message: 'Server encountered problem while saving.' });
                         }
                         if (!currentUser) {
                             const newUser = new User(user);
@@ -78,7 +78,7 @@ module.exports = {
                             newUser.password = hashedPassword;
                             newUser.save(function (err) {
                                 if (err) {
-                                    res.status(500).send({ success: true, message: 'Server encountered problem while saving.' });
+                                    res.status(500).send({ success: false, message: 'Server encountered problem while saving.' });
                                 }
                                 else {
                                     res.status(201).send({ success: true, message: 'Registered successfully' });
@@ -99,7 +99,7 @@ module.exports = {
             }
         }
         else {
-            res.status(400).send({ success: true, message: 'Bad Request. Fill all the fields' });
+            res.status(400).send({ success: false, message: 'Bad Request. Fill all the fields' });
         }
     }
 }

@@ -66,7 +66,7 @@ module.exports = {
             var email_filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
             var password_filter = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,}/
             if (email_filter.test(user.email)) {
-                if (user.password === user.repeatPassword)
+                if (user.password === user.repeatPassword) {
                     if (password_filter.test(user.password)) {
                         User.findOne({ email: user.email }, function (err, currentUser) {
 
@@ -94,17 +94,17 @@ module.exports = {
                     else {
                         res.status(400).send({ success: false, message: 'Weak password. password should contain at least 1 lowercase alphabetical character,at least 1 uppercase alphabetical character,at least 1 numeric character and must be must be eight characters or longer.' });
                     }
+                }
+                else {
+                    res.status(400).send({ success: false, message: 'Password entered do not match' });
+                }
             }
             else {
-
+                res.status(400).send({ success: false, message: 'Bad Request. Invalid email' });
             }
         }
         else {
-            res.status(400).send({ success: false, message: 'Bad Request. Invalid email' });
+            res.status(400).send({ success: false, message: 'Bad Request. Fill all the fields' });
         }
     }
-        else {
-        res.status(400).send({ success: false, message: 'Bad Request. Fill all the fields' });
-    }
-}
 }

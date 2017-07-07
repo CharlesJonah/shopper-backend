@@ -96,7 +96,7 @@ module.exports = {
                     }
                 }
                 else {
-                    res.status(400).send({ success: false, message: 'Password entered do not match' });
+                    res.status(400).send({ success: false, message: 'Passwords entered do not match' });
                 }
             }
             else {

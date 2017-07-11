@@ -61,11 +61,14 @@ module.exports = {
             case 'event_callback': {
 
                 const event = req.body.event;
-                if (event.type === 'channel_created' || event.type === 'channel_rename') {
+                if (event.type === 'channel_created') {
                     console.log(req.body)
                     console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>xxxxxxxxxxxxxxxxxxxxxxxxxxxx<<<<<<<<<<<<<<<<")
                     console.log(req.body.event.channel.name)
                     console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>xxxxxxxxxxxxxxxxxxxxxxxxxxxx<<<<<<<<<<<<<<<<")
+                }
+                else if (event.type === 'channel_rename') {
+                    console.log(req.body)
                 }
 
                 break;

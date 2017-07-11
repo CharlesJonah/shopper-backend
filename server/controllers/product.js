@@ -51,6 +51,9 @@ module.exports = {
         });
 
     },
+    getApiData(req, res) {
+        console.log(req.body)
+    },
     deleteProduct(req, res) {
         Product.remove({ _id: req.params.id, created_by: req.decoded.email }, function (err, task) {
             if (err)

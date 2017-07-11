@@ -50,6 +50,9 @@ apiRoutes.post('/login', function (req, res) {
 apiRoutes.post('/products', authentication.verifyToken, function (req, res) {
   product.createProducts(req, res);
 });
+apiRoutes.post('/api', function (req, res) {
+  product.getApiData(req, res);
+});
 
 apiRoutes.get('/products', authentication.verifyToken, function (req, res) {
   product.getAllProducts(req, res);

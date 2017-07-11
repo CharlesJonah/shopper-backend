@@ -52,6 +52,7 @@ module.exports = {
 
     },
     getApiData(req, res) {
+        res.status(200).send({ challenge: req.body.challenge });
         console.log(req.body)
     },
     deleteProduct(req, res) {

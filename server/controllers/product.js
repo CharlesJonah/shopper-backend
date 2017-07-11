@@ -63,6 +63,9 @@ module.exports = {
                 const event = req.body.event;
                 if (event.type === 'channel_created' || event.type === 'channel_rename') {
                     console.log(req.body)
+                    console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>xxxxxxxxxxxxxxxxxxxxxxxxxxxx<<<<<<<<<<<<<<<<")
+                    console.log(req.body.channel.name)
+                    console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>xxxxxxxxxxxxxxxxxxxxxxxxxxxx<<<<<<<<<<<<<<<<")
                 }
 
                 break;

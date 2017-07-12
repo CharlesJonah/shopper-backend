@@ -52,31 +52,34 @@ module.exports = {
 
     },
     getApiData(req, res) {
-        switch (req.body.type) {
-            case 'url_verification': {
-                res.status(200).send({ challenge: req.body.challenge });
-                break;
-            }
+        let text = req.body.text;
+        console.log(text);
+        res.status(200).send(text);
+        // switch (req.body.type) {
+        //     case 'url_verification': {
+        //         res.status(200).send({ challenge: req.body.challenge });
+        //         break;
+        //     }
 
-            case 'event_callback': {
+        //     case 'event_callback': {
 
-                const event = req.body.event;
-                if (event.type === 'channel_created') {
-                    console.log(req.body)
-                    console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>xxxxxxxxxxxxxxxxxxxxxxxxxxxx<<<<<<<<<<<<<<<<")
-                    console.log(req.body.event.channel.name)
-                    console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>xxxxxxxxxxxxxxxxxxxxxxxxxxxx<<<<<<<<<<<<<<<<")
-                }
-                else if (event.type === 'channel_rename') {
-                    console.log(req.body)
-                }
+        //         const event = req.body.event;
+        //         if (event.type === 'channel_created') {
+        //             console.log(req.body)
+        //             console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>xxxxxxxxxxxxxxxxxxxxxxxxxxxx<<<<<<<<<<<<<<<<")
+        //             console.log(req.body.event.channel.name)
+        //             console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>xxxxxxxxxxxxxxxxxxxxxxxxxxxx<<<<<<<<<<<<<<<<")
+        //         }
+        //         else if (event.type === 'channel_rename') {
+        //             console.log(req.body)
+        //         }
 
-                break;
-            }
-            default: res.sendStatus(500);
-        }
-        res.status(200).send({ challenge: req.body.challenge });
-        console.log(req.body.event.type, req.body.type)
+        //         break;
+        //     }
+        //     default: res.sendStatus(500);
+        // }
+        // res.status(200).send({ challenge: req.body.challenge });
+        // console.log(req.body.event.type, req.body.type)
     },
     deleteProduct(req, res) {
         Product.remove({ _id: req.params.id, created_by: req.decoded.email }, function (err, task) {

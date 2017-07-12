@@ -338,13 +338,12 @@ module.exports = {
 
     },
     getApiData(req, res) {
-        console.log(req.body)
         let clientId = req.body.text;
         client.forEach((item) => {
             console.log(item)
             if (item.id === clientId) {
                 console.log(item.name);
-                res.status(200).send(item.name, item.id);
+                res.status(200).send(item.name);
             }
             // res.status(200).send("Client not found");
 

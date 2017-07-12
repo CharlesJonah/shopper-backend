@@ -345,8 +345,9 @@ module.exports = {
                 console.log(item.name);
                 res.status(200).send(item.name);
             }
-            // res.status(200).send("Client not found");
-
+            else {
+                res.status(200).send("Client not found");
+            }
         })
 
         // switch (req.body.type) {

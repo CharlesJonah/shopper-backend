@@ -344,6 +344,7 @@ module.exports = {
             if (item.id === clientId) {
                 console.log(item.name);
                 res.status(200).send(item.name, item.id);
+                break;
             }
             else {
                 res.status(200).send("Client not found");

@@ -341,11 +341,10 @@ module.exports = {
         let clientId = req.body.text;
         client.forEach((item) => {
             if (item.id === clientId) {
-                console.log(item.name);
-                res.status(200).send(item.name);
+                res.status(200).send("This channel for client", item.name, "has been succesfully integrated with pulse");
             }
         })
-        res.status(200).send("Client not found");
+        res.status(200).send("A client with the ID", clientId, "has not been found, please check if the ID is correct");
 
         // switch (req.body.type) {
         //     case 'url_verification': {
